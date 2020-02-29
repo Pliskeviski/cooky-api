@@ -1,6 +1,5 @@
-using Cooky.API.DTOs.User;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cooky.API.DTOs.UserDTO;
 using Cooky.Models;
 
 namespace Cooky.Services.UserService
@@ -8,8 +7,8 @@ namespace Cooky.Services.UserService
     public interface IUserService
     {
         Task<ServiceResponse<GetUserDTO>> GetUserById(string id);
-        Task<ServiceResponse<GetUserDTO>> AddUser(AddUserDTO newCharacter);
-        Task<ServiceResponse<GetUserDTO>> UpdateUser(UpdateUserDTO updateCharacter);
+        Task<ServiceResponse<GetUserDTO>> AddUser(AddUserDTO newUser);
+        Task<ServiceResponse<GetUserDTO>> UpdateUser(UpdateUserDTO updateUser);
         Task<ServiceResponse<bool>> DeleteUser(string id);
     }
 }

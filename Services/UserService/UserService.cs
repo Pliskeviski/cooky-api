@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Cooky.API.DTOs.User;
+using Cooky.API.DTOs.UserDTO;
 using Cooky.API.Models;
 using Cooky.API.Repositories.UserRepository;
 using Cooky.Models;
@@ -72,7 +70,6 @@ namespace Cooky.Services.UserService
                 // TODO: Check permission
                 user.Birthday = updatedUser.Birthday == null ? user.Birthday : updatedUser.Birthday;
                 user.Description = updatedUser.Description == null ? user.Description : updatedUser.Description;
-                user.Email = updatedUser.Email == null ? user.Email : updatedUser.Email;
                 user.Gender = updatedUser.Gender == null ? user.Gender : updatedUser.Gender.Value;
                 user.Name = updatedUser.Name == null ? user.Name : updatedUser.Name;
                 user.Picture = updatedUser.Picture == null ? user.Picture : updatedUser.Picture;

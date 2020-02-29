@@ -7,8 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Cooky.Data;
-using Cooky.Repositories;
 using Cooky.Services.UserService;
+using Cooky.API.Services.LoginService;
+using Cooky.API.Repositories.LoginRepository;
 
 namespace Cooky
 {
@@ -27,8 +28,12 @@ namespace Cooky
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
+         
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,8 +1,4 @@
 ﻿using Cooky.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Cooky.Data;
 using Cooky.Repositories.Base;
 

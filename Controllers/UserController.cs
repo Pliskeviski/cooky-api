@@ -1,4 +1,4 @@
-﻿using Cooky.API.DTOs.User;
+﻿using Cooky.API.DTOs.UserDTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

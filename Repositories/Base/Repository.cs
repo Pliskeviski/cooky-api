@@ -19,6 +19,9 @@ namespace Cooky.Repositories.Base
 
         public async Task AddAsync(TEntity entity)
         {
+            entity.CreateAt = DateTime.UtcNow;
+            entity.UpdatedAt = DateTime.UtcNow;
+
             await dbContext.Set<TEntity>().AddAsync(entity);
             await dbContext.SaveChangesAsync();
         }

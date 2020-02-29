@@ -1,5 +1,6 @@
 using AutoMapper;
-using Cooky.API.DTOs.User;
+using Cooky.API.DTOs.LoginDTO;
+using Cooky.API.DTOs.UserDTO;
 using Cooky.API.Models;
 
 namespace Cooky
@@ -11,6 +12,9 @@ namespace Cooky
             CreateMap<AddUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
             CreateMap<User, GetUserDTO>();
+
+            CreateMap<RegisterLoginDTO, Login>();
+            CreateMap<Login, GetLoginDTO>();
         }
     }
 }

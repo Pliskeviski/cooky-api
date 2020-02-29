@@ -1,7 +1,7 @@
 ﻿using Cooky.API.Models;
 using System;
 
-namespace Cooky.API.DTOs.User
+namespace Cooky.API.DTOs.UserDTO
 {
     public class GetUserDTO
     {
