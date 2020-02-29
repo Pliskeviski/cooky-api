@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace webapi_learning
+namespace Cooky
 {
     public class Program
     {

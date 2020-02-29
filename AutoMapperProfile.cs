@@ -1,16 +1,16 @@
 using AutoMapper;
-using webapi_learning.DTOs.Character;
-using webapi_learning.Models;
+using Cooky.API.DTOs.User;
+using Cooky.API.Models;
 
-namespace webapi_learning
+namespace Cooky
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            CreateMap<Character, GetCharacterDTO>();
-            CreateMap<AddCharacterDTO, Character>();
-            CreateMap<UpdateCharacterDTO, Character>();
+            CreateMap<AddUserDTO, User>();
+            CreateMap<UpdateUserDTO, User>();
+            CreateMap<User, GetUserDTO>();
         }
     }
 }

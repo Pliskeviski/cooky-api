@@ -1,13 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Cooky.API.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace webapi_learning.Repositories.Base
+namespace Cooky.Repositories.Base
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
         protected readonly DbContext dbContext;
 
@@ -37,19 +38,9 @@ namespace webapi_learning.Repositories.Base
             return await dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public async ValueTask<TEntity> GetByIdAsync(int id)
+        public async ValueTask<TEntity> GetByIdAsync(string id)
         {
-            return await dbContext.Set<TEntity>().FindAsync(id);
-        }
-
-        public void Remove(TEntity entity)
-        {
-            dbContext.Set<TEntity>().Remove(entity);
-        }
-
-        public void RemoveRange(IEnumerable<TEntity> entities)
-        {
-            dbContext.Set<TEntity>().RemoveRange(entities);
+            return await dbContext.Set<TEntity>().Where(x => x.Id == id && x.DeletedAt == null).FirstOrDefaultAsync();
         }
 
         public Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
@@ -59,6 +50,15 @@ namespace webapi_learning.Repositories.Base
 
         public async Task Update(TEntity entity)
         {
+            entity.UpdatedAt = DateTime.UtcNow;
+            dbContext.Update(entity);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(string id)
+        {
+            var entity = await GetByIdAsync(id);
+            entity.DeletedAt = DateTime.UtcNow;
             dbContext.Update(entity);
             await dbContext.SaveChangesAsync();
         }

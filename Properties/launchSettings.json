@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "webapi_learning": {
+    "Cooky": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",

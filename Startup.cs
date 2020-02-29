@@ -1,15 +1,16 @@
 using AutoMapper;
+using Cooky.API.Repositories.UserRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using webapi_learning.Data;
-using webapi_learning.Repositories;
-using webapi_learning.Services.CharacterService;
+using Cooky.Data;
+using Cooky.Repositories;
+using Cooky.Services.UserService;
 
-namespace webapi_learning
+namespace Cooky
 {
     public class Startup
     {
@@ -26,8 +27,8 @@ namespace webapi_learning
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<ICharacterService, CharacterService>();
-            services.AddScoped<ICharacterRepository, CharacterRepository>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

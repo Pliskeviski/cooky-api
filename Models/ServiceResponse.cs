@@ -1,4 +1,4 @@
-namespace webapi_learning.Models
+namespace Cooky.Models
 {
     public class ServiceResponse<T>
     {

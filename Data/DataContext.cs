@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using webapi_learning.Models;
+﻿using Cooky.API.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace webapi_learning.Data
+namespace Cooky.Data
 {
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        public DbSet<Character> Characters { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
