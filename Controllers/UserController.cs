@@ -1,10 +1,8 @@
 ﻿using Cooky.API.DTOs.UserDTO;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Cooky.Services.UserService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cooky.API.Controllers
 {
@@ -18,6 +16,7 @@ namespace Cooky.API.Controllers
             this._service = userService;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
@@ -31,12 +30,7 @@ namespace Cooky.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AddUserDTO user)
-        {
-            return Ok(await _service.AddUser(user));
-        }
-
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UpdateUserDTO user)
         {
@@ -47,6 +41,7 @@ namespace Cooky.API.Controllers
             return Ok(response);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {

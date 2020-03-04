@@ -9,7 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Cooky.Data;
 using Cooky.Services.UserService;
 using Cooky.API.Services.LoginService;
-using Cooky.API.Repositories.LoginRepository;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Cooky
 {
@@ -32,8 +34,18 @@ namespace Cooky
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
 
-            services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IAuthService, AuthService>();
+
+            var key = Encoding.ASCII.GetBytes(Configuration.GetSection("Token").Value);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +59,8 @@ namespace Cooky
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

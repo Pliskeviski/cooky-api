@@ -18,30 +18,6 @@ namespace Cooky.Services.UserService
             this._repository = userRepository;
         }
 
-        public async Task<ServiceResponse<GetUserDTO>> AddUser(AddUserDTO newUser)
-        {
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
-
-            try
-            {
-                User user = _mapper.Map<User>(newUser);
-                
-                user.CreateAt = DateTime.UtcNow;
-                user.UpdatedAt = DateTime.UtcNow;
-
-                await _repository.AddAsync(user);
-
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
-            }
-            catch (Exception ex)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = ex.Message;
-            }
-
-            return serviceResponse;
-        }
-
         public async Task<ServiceResponse<GetUserDTO>> GetUserById(string id)
         {
             var serviceResponse = new ServiceResponse<GetUserDTO>();
