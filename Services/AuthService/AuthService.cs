@@ -13,20 +13,18 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cooky.API.Services.LoginService
+namespace Cooky.API.Services.AuthService
 {
     public class AuthService : IAuthService
     {
         private readonly IMapper _mapper;
         private readonly IUserRepository _repository;
         private readonly IConfiguration _config;
-        private readonly IHttpContextAccessor _context;
-        public AuthService(IMapper mapper, IUserRepository userRepository, IConfiguration config, IHttpContextAccessor context)
+        public AuthService(IMapper mapper, IUserRepository userRepository, IConfiguration config)
         {
             this._mapper = mapper;
             this._repository = userRepository;
             this._config = config;
-            this._context = context;
         }
 
         public async Task<ServiceResponse<GetUserDTO>> ChangePassword(UpdateUserDTO updateCharacter)
@@ -48,12 +46,6 @@ namespace Cooky.API.Services.LoginService
 
         public async Task<ServiceResponse<User>> GetUserByToken(string token)
         {
-            // TODO
-            if (_context.HttpContext.User.Identity is ClaimsIdentity identity)
-            {
-                var email = identity.FindFirst(ClaimTypes.Name).Value;
-            }
-
             throw new NotImplementedException();
         }
 

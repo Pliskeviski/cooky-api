@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Cooky.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
+using Cooky.API.Controllers.Base;
 
 namespace Cooky.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService _service;
         public UserController(IUserService userService)
@@ -20,6 +22,7 @@ namespace Cooky.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(string id)
         {
+            var a = User.Claims.Where(x => x.Type == "NameIdentifier");
             var response = await _service.GetUserById(id);
             if (response.Data == null)
             {

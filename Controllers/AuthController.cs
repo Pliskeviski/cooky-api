@@ -1,13 +1,14 @@
 ﻿using System.Threading.Tasks;
+using Cooky.API.Controllers.Base;
 using Cooky.API.DTOs.AuthDTO;
-using Cooky.API.Services.LoginService;
+using Cooky.API.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cooky.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly IAuthService _service;
         public AuthController(IAuthService service)
