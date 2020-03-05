@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Cooky.API.Controllers.Base;
 using Cooky.API.DTOs.AuthDTO;
+using Cooky.API.Repositories.UserRepository;
 using Cooky.API.Services.AuthService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Cooky.API.Controllers
     public class AuthController : BaseController
     {
         private readonly IAuthService _service;
-        public AuthController(IAuthService service)
+        public AuthController(IAuthService service, IUserRepository userRepository) : base(userRepository)
         {
             this._service = service;
         }

@@ -13,9 +13,6 @@ namespace Cooky
             CreateMap<UpdateUserDTO, User>();
             CreateMap<User, GetUserDTO>();
             CreateMap<RegisterUserDTO, User>();
-
-            //CreateMap<RegisterLoginDTO, Login>();
-            //CreateMap<Login, GetLoginDTO>();
         }
     }
 }

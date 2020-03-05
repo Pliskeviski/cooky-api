@@ -1,13 +1,8 @@
-﻿using System;
+﻿using Cooky.API.Models.Enum;
+using System;
 
 namespace Cooky.API.Models
 {
-    public enum Gender
-    {
-        Undefined = 0,
-        Male,
-        Female
-    }
     public class User : BaseModel
     {
         public string Name { get; set; }

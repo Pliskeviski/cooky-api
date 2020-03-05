@@ -12,6 +12,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Cooky.API.Services.AuthService;
+using Cooky.API.Repositories.ProductRepository;
+using Cooky.API.Services.ProductService;
 
 namespace Cooky
 {
@@ -35,6 +37,9 @@ namespace Cooky
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IAuthService, AuthService>();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection("Token").Value);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
