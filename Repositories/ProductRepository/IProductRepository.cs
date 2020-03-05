@@ -3,7 +3,7 @@ using Cooky.Repositories.Base;
 
 namespace Cooky.API.Repositories.ProductRepository
 {
-    interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
 
     }

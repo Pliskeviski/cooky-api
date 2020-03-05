@@ -44,11 +44,6 @@ namespace Cooky.API.Services.AuthService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<User>> GetUserByToken(string token)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ServiceResponse<GetLoginDTO>> Login(LoginUserDTO login)
         {
             var serviceResponse = new ServiceResponse<GetLoginDTO>();

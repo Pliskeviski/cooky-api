@@ -11,6 +11,5 @@ namespace Cooky.API.Services.AuthService
         Task<ServiceResponse<GetUserDTO>> Register(RegisterUserDTO register);
         Task<ServiceResponse<GetLoginDTO>> Login(LoginUserDTO login);
         Task<ServiceResponse<GetUserDTO>> ChangePassword(UpdateUserDTO login);
-        Task<ServiceResponse<User>> GetUserByToken(string token);
     }
 }
