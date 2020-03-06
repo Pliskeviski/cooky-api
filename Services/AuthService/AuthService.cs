@@ -58,21 +58,7 @@ namespace Cooky.API.Services.AuthService
                 if (!VerifyPassword(login.Password, user.PasswordHash, user.PasswordSalt))
                     return null;
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_config.GetSection("Token").Value);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new Claim[]{
-                    new Claim(ClaimTypes.Name, user.Id)
-                }),
-                    Expires = DateTime.Now.AddDays(1),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
-                };
-
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-
-                serviceResponse.Data = new GetLoginDTO() { Token = tokenString };
+                serviceResponse.Data = new GetLoginDTO() { Token = GenerateToken(user) };
             }
             catch (Exception ex)
             {
@@ -83,9 +69,9 @@ namespace Cooky.API.Services.AuthService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDTO>> Register(RegisterUserDTO register)
+        public async Task<ServiceResponse<GetLoginDTO>> Register(RegisterUserDTO register)
         {
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            var serviceResponse = new ServiceResponse<GetLoginDTO>();
 
             try
             {
@@ -99,7 +85,7 @@ namespace Cooky.API.Services.AuthService
 
                 await _repository.AddAsync(user);
 
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+                serviceResponse.Data = new GetLoginDTO() { Token = GenerateToken(user) };
             }
             catch (Exception ex)
             {
@@ -108,6 +94,23 @@ namespace Cooky.API.Services.AuthService
             }
 
             return serviceResponse;
+        }
+
+        private string GenerateToken(User user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_config.GetSection("Token").Value);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]{
+                    new Claim(ClaimTypes.Name, user.Id)
+                }),
+                //Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

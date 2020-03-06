@@ -8,7 +8,7 @@ namespace Cooky.API.Services.AuthService
 {
     public interface IAuthService
     {
-        Task<ServiceResponse<GetUserDTO>> Register(RegisterUserDTO register);
+        Task<ServiceResponse<GetLoginDTO>> Register(RegisterUserDTO register);
         Task<ServiceResponse<GetLoginDTO>> Login(LoginUserDTO login);
         Task<ServiceResponse<GetUserDTO>> ChangePassword(UpdateUserDTO login);
     }
