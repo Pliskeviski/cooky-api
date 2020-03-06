@@ -24,5 +24,33 @@ namespace Cooky.API.Controllers
         {
             return Ok(await _service.AddProduct(product, this.CurrentUser));
         }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var response = await _service.GetProduct(id);
+            if (response.Data == null)
+            {
+                response.Success = false;
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpGet("Nearby")]
+        public async Task<IActionResult> Nearby(GetNearByDTO location)
+        {
+            var response = await _service.GetNearbyProducts(location);
+            if (response.Data == null)
+            {
+                response.Success = false;
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
     }
 }

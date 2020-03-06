@@ -2,8 +2,12 @@
 using Cooky.API.DTOs.ProductDTO;
 using Cooky.API.Models;
 using Cooky.API.Repositories.ProductRepository;
+using Cooky.API.Repositories.UserRepository;
 using Cooky.Models;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Cooky.API.Services.ProductService
@@ -12,10 +16,12 @@ namespace Cooky.API.Services.ProductService
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _repository;
-        public ProductService(IMapper mapper, IProductRepository productRepository)
+        private readonly IUserRepository _userRepository;
+        public ProductService(IMapper mapper, IProductRepository productRepository, IUserRepository userRepository)
         {
             this._mapper = mapper;
             this._repository = productRepository;
+            this._userRepository = userRepository;
         }
 
         public async Task<ServiceResponse<GetProductDTO>> AddProduct(AddProductDTO newProduct, User user)
@@ -31,6 +37,46 @@ namespace Cooky.API.Services.ProductService
                 await _repository.AddAsync(product);
 
                 serviceResponse.Data = _mapper.Map<GetProductDTO>(await _repository.SingleOrDefaultAsync(x => x.Id == product.Id));
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetProductDTO>>> GetNearbyProducts(GetNearByDTO location)
+        {
+            var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+
+            try
+            {
+                // Find nearby users
+                var users = await _userRepository.GetAllAsync();
+                var nearUsers = users.OrderBy(x => 12742 * SqlFunctions.Asin(SqlFunctions.SquareRoot(SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Latitude - location.Latitude)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Latitude - location.Latitude)) / 2) +
+                                                    SqlFunctions.Cos((SqlFunctions.Pi() / 180) * location.Latitude) * SqlFunctions.Cos((SqlFunctions.Pi() / 180) * (x.Latitude)) *
+                                                    SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Longitude - location.Longitude)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Longitude - location.Longitude)) / 2)))).Take(5);
+                // Get active products
+                // Send
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetProductDTO>> GetProduct(string id)
+        {
+            var serviceResponse = new ServiceResponse<GetProductDTO>();
+
+            try
+            {
+                serviceResponse.Data = _mapper.Map<GetProductDTO>(await _repository.GetByIdAsync(id));
             }
             catch (Exception ex)
             {

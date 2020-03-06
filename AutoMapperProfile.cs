@@ -16,7 +16,7 @@ namespace Cooky
             CreateMap<User, GetUserDTO>();
 
             CreateMap<AddProductDTO, Product>();
-            CreateMap<Product, GetProductDTO>();
+            CreateMap<Product, GetProductDTO>().ForMember(x => x.UserName, opt => opt.MapFrom(s => s.User.Name));
         }
     }
 }

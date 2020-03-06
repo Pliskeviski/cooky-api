@@ -11,5 +11,6 @@ namespace Cooky.API.DTOs.ProductDTO
         public float OriginalPrice { get; set; }
         public ProductStatus Status { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

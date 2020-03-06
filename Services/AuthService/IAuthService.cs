@@ -1,6 +1,5 @@
 ﻿using Cooky.API.DTOs.AuthDTO;
 using Cooky.API.DTOs.UserDTO;
-using Cooky.API.Models;
 using Cooky.Models;
 using System.Threading.Tasks;
 
