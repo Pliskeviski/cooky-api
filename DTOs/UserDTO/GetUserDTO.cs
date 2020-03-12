@@ -12,7 +12,7 @@ namespace Cooky.API.DTOs.UserDTO
         public DateTime? Birthday { get; set; }
         public string Picture { get; set; }
         public string Description { get; set; }
-        public double? Logitude { get; set; }
+        public double? Longitude { get; set; }
         public double? Latitude { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdatedAt { get; set; }

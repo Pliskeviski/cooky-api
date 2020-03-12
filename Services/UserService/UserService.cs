@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Cooky.API.DTOs.ProductDTO;
 using Cooky.API.DTOs.UserDTO;
 using Cooky.API.Models;
 using Cooky.API.Repositories.UserRepository;
@@ -72,6 +74,23 @@ namespace Cooky.Services.UserService
                 // TODO: Check permission
                 await _repository.Delete(id);
                 serviceResponse.Data = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetUserDTO>>> GetNearbyUsers(GetNearByDTO location)
+        {
+            var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
+
+            try
+            {
+                serviceResponse.Data = _mapper.Map<List<GetUserDTO>>(await _repository.GetNearByDapper(location.Latitude, location.Longitude));
             }
             catch (Exception ex)
             {

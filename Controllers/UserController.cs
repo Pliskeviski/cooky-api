@@ -5,6 +5,7 @@ using Cooky.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Cooky.API.Controllers.Base;
 using Cooky.API.Repositories.UserRepository;
+using Cooky.API.DTOs.ProductDTO;
 
 namespace Cooky.API.Controllers
 {
@@ -48,6 +49,13 @@ namespace Cooky.API.Controllers
         public async Task<IActionResult> DeleteUser(string id)
         {
             return Ok(await _service.DeleteUser(id));
+        }
+
+        [Authorize]
+        [HttpGet("Nearby")]
+        public async Task<IActionResult> Nearby(GetNearByDTO location)
+        {
+            return Ok(await _service.GetNearbyUsers(location));
         }
     }
 }
