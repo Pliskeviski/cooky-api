@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Cooky.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class ProductController : BaseController
     {
         private readonly IProductService _service;

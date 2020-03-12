@@ -7,7 +7,6 @@ using Cooky.API.Repositories.UserRepository;
 using Cooky.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Threading.Tasks;
 

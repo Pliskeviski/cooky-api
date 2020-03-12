@@ -1,5 +1,4 @@
-﻿using Cooky.API.Models;
-using Cooky.API.Models.Enum;
+﻿using Cooky.API.Models.Enum;
 using System;
 
 namespace Cooky.API.DTOs.UserDTO

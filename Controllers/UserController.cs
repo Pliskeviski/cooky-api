@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Cooky.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Cooky.API.Controllers.Base;
 using Cooky.API.Repositories.UserRepository;
 
 namespace Cooky.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class UserController : BaseController
     {
         private readonly IUserService _service;
