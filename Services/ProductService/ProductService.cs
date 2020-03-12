@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cooky.API.DTOs.ProductDTO;
 using Cooky.API.Models;
+using Cooky.API.Models.Enum;
 using Cooky.API.Repositories.ProductRepository;
 using Cooky.API.Repositories.UserRepository;
 using Cooky.Models;
@@ -53,13 +54,17 @@ namespace Cooky.API.Services.ProductService
 
             try
             {
-                // Find nearby users
-                var users = await _userRepository.GetAllAsync();
-                var nearUsers = users.OrderBy(x => 12742 * SqlFunctions.Asin(SqlFunctions.SquareRoot(SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Latitude - location.Latitude)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Latitude - location.Latitude)) / 2) +
-                                                    SqlFunctions.Cos((SqlFunctions.Pi() / 180) * location.Latitude) * SqlFunctions.Cos((SqlFunctions.Pi() / 180) * (x.Latitude)) *
-                                                    SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Longitude - location.Longitude)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.Longitude - location.Longitude)) / 2)))).Take(5);
-                // Get active products
-                // Send
+                List<User> nearByUsers = await _userRepository.GetNearByDapper(location.Latitude, location.Longitude);
+
+                List<Product> products = new List<Product>();
+                nearByUsers.ForEach((usr) => {
+                    var userProducts = _repository.GetProductByUserIdDapper(usr.Id).Result;
+                    var activeProducts = userProducts.Where(x => x.Status == ProductStatus.Active).ToList();
+                    activeProducts.ForEach(x => x.User = usr);
+                    products.AddRange(activeProducts);
+                });
+
+                serviceResponse.Data = _mapper.Map<List<GetProductDTO>>(products);
             }
             catch (Exception ex)
             {

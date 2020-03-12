@@ -43,14 +43,7 @@ namespace Cooky.API.Controllers
         [HttpGet("Nearby")]
         public async Task<IActionResult> Nearby(GetNearByDTO location)
         {
-            var response = await _service.GetNearbyProducts(location);
-            if (response.Data == null)
-            {
-                response.Success = false;
-                return NotFound(response);
-            }
-
-            return Ok(response);
+            return Ok(await _service.GetNearbyProducts(location));
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using Cooky.API.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -11,10 +14,20 @@ namespace Cooky.Repositories.Base
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
     {
         protected readonly DbContext dbContext;
+        private readonly IConfiguration _config;
 
-        public Repository(DbContext context)
+        public Repository(DbContext context, IConfiguration config)
         {
             this.dbContext = context;
+            _config = config;
+        }
+
+        public IDbConnection Connection
+        {
+            get
+            {
+                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            }
         }
 
         public async Task AddAsync(TEntity entity)
