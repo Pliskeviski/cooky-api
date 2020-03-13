@@ -25,7 +25,8 @@ namespace Cooky.Services.UserService
             var serviceResponse = new ServiceResponse<GetUserDTO>();
             try
             {
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(await _repository.GetByIdAsync(id));
+                var user = await _repository.GetByIdWithProductsDapper(id);
+                serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
             }
             catch (Exception ex)
             {

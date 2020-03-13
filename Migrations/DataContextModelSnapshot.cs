@@ -109,7 +109,7 @@ namespace Cooky.API.Migrations
             modelBuilder.Entity("Cooky.API.Models.Product", b =>
                 {
                     b.HasOne("Cooky.API.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

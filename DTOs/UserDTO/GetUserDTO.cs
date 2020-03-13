@@ -1,5 +1,7 @@
-﻿using Cooky.API.Models.Enum;
+﻿using Cooky.API.DTOs.ProductDTO;
+using Cooky.API.Models.Enum;
 using System;
+using System.Collections.Generic;
 
 namespace Cooky.API.DTOs.UserDTO
 {
@@ -16,5 +18,6 @@ namespace Cooky.API.DTOs.UserDTO
         public double? Latitude { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public List<GetProductDTO> Products { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cooky.API.Models.Enum;
 using System;
+using System.Collections.Generic;
 
 namespace Cooky.API.Models
 {
@@ -15,5 +16,6 @@ namespace Cooky.API.Models
         public string Description { get; set; }
         public double Longitude { get; set; } = 0;
         public double Latitude { get; set; } = 0;
+        public List<Product> Products { get; set; }
     }
 }

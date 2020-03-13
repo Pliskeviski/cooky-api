@@ -8,5 +8,6 @@ namespace Cooky.API.Repositories.UserRepository
     public interface IUserRepository : IRepository<User>
     {
         Task<List<User>> GetNearByDapper(double latitude, double longitude, float rangeDistance = 20);
+        Task<User> GetByIdWithProductsDapper(string id);
     }
 }
