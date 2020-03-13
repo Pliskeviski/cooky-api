@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Cooky.API.Services.AuthService;
 using Cooky.API.Repositories.ProductRepository;
 using Cooky.API.Services.ProductService;
+using Microsoft.OpenApi.Models;
 
 namespace Cooky
 {
@@ -51,6 +52,11 @@ namespace Cooky
                     ValidateAudience = false
                 };
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cooky API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +74,13 @@ namespace Cooky
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cooky v1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
