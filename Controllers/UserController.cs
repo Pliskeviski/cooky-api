@@ -53,9 +53,9 @@ namespace Cooky.API.Controllers
 
         [Authorize]
         [HttpGet("Nearby")]
-        public async Task<IActionResult> Nearby(GetNearByDTO location)
+        public async Task<IActionResult> Nearby(double latitude, double longitude)
         {
-            return Ok(await _service.GetNearbyUsers(location));
+            return Ok(await _service.GetNearbyUsers(new GetNearByDTO() { Latitude = latitude, Longitude = longitude }));
         }
     }
 }

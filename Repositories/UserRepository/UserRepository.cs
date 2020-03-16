@@ -41,7 +41,6 @@ namespace Cooky.API.Repositories.UserRepository
         {
             using (IDbConnection conn = Connection)
             { 
-                // TODO: Check for deleted user
                 string sQuery = @"SELECT * FROM Users where 
                                   DeletedAt IS NULL AND
                                   (111.045 * DEGREES(ACOS(COS(RADIANS(@lat))
