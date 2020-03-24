@@ -13,6 +13,6 @@ donet run
 ## Endpoints
 
 ```python
-http://locahost:XXXX/swagger
+http://localhost:XXXX/swagger
 ```
 
